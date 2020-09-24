@@ -15,7 +15,6 @@ Main class to make the backups
 
 logger = logging.getLogger()
 
-
 def initialize_logger(logger_fmt, logger_file_path, debug):
     logger_options = {
         "format": logger_fmt,
@@ -71,7 +70,7 @@ def create_argparser():
         dest="password",
         default=None,
     )
-
+    
     vmg = p.add_argument_group("VM's related arguments")
     vmg.add_argument(
         "-a", "--all-vms",
@@ -100,7 +99,7 @@ def create_argparser():
         dest="vm_middle",
         default=None,
     )
-
+    
     dcg = p.add_argument_group("Data Centrum's related options")
     dcg.add_argument(
         "--export-domain",
@@ -166,7 +165,7 @@ def create_argparser():
         action="store_true",
         default=None,
     )
-
+    
     lg = p.add_argument_group("Logging related options")
     lg.add_argument(
         "--logger-fmt",
@@ -182,19 +181,17 @@ def create_argparser():
     )
     return p
 
-
 def arguments_to_dict(opts):
     result = {}
     ignored_keys = ('config_file', 'dry_run', 'debug')
-
+    
     for key, val in vars(opts).items():
         if key in ignored_keys:
             continue  # These doesn't have a place in config file
         if val is not None:
             result[key] = val
-
+    
     return result
-
 
 def main(argv):
     p = create_argparser()
