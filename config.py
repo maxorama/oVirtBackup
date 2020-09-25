@@ -1,8 +1,12 @@
-from ConfigParser import (
-    RawConfigParser,
-    NoSectionError,
-    NoOptionError,
-)
+try:
+    from configparser import (
+        RawConfigParser,
+        NoSectionError,
+        NoOptionError
+    )
+except ImportError:
+    import ConfigParser as configparser
+   
 import re
 import sys
 import json
@@ -24,7 +28,7 @@ class Config(object):
     def __init__(self, fd, debug, arguments):
         try:
             self._cp = config_parser = RawConfigParser(defaults=DEFAULTS)
-            config_parser.readfp(fd)
+            config_parser.read_file(fd)
 
             section = CONFIG_SECTION
             # Update with options passed from CLI interface
@@ -55,7 +59,7 @@ class Config(object):
             self.__logger_file_path = config_parser.get(section, "logger_file_path")
             self.__persist_memorystate = config_parser.getboolean(section, "persist_memorystate")
         except (NoSectionError, NoOptionError) as e:
-            print str(e)
+            print(str(e))
             sys.exit(1)
 
     def get_vm_names(self):
