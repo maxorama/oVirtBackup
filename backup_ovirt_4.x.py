@@ -3,8 +3,8 @@
 import logging
 import sys
 import time
-#import ovirtsdk4 as sdk
-#import ovirtsdk4.types as types
+import ovirtsdk4 as sdk
+import ovirtsdk4.types as types
 
 from argparse import ArgumentParser, FileType
 from config import Config
